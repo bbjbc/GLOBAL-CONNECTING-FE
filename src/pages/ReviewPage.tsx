@@ -5,9 +5,11 @@ import ReviewResult from '../components/review/ReviewResult';
 
 import { dataStore } from '../store/dataStore';
 import { PATH } from '../constants/path';
+import { useReviewMutation } from '../apis/mutations';
 
 const ReviewPage = () => {
   const reviewedText = dataStore((state) => state.reviewedText);
+  const mutation = useReviewMutation();
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -26,13 +28,13 @@ const ReviewPage = () => {
       <main className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="h-full rounded-lg bg-white p-6 shadow-sm">
-            <ResumeForm />
+            <ResumeForm mutation={mutation} />
           </div>
 
           <div className="lg:h-full">
             {reviewedText ? (
-              <div className="h-full rounded-lg bg-white p-6 shadow-sm">
-                <ReviewResult />
+              <div className="h-full rounded-lg bg-white p-4 shadow-sm">
+                <ReviewResult isPending={mutation.isPending} />
               </div>
             ) : (
               <div className="flex h-full items-center justify-center rounded-lg bg-white/40 p-6">

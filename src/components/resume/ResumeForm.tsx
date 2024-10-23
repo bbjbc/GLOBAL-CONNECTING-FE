@@ -6,7 +6,11 @@ import { dataStore } from '../../store/dataStore';
 import { useReviewMutation } from '../../apis/mutations';
 import { IReviewPayload } from '../../types/review';
 
-const ResumeForm = () => {
+type ResumeFormProps = {
+  mutation: ReturnType<typeof useReviewMutation>;
+};
+
+const ResumeForm = ({ mutation }: ResumeFormProps) => {
   const { addChat, setReviewedText } = dataStore();
   const { control, handleSubmit, watch } = useForm<IReviewPayload>({
     defaultValues: {
@@ -16,7 +20,6 @@ const ResumeForm = () => {
   });
 
   const resumeText = watch('resumeText'); // 입력값 감지
-  const mutation = useReviewMutation();
 
   const onSubmit = async (data: IReviewPayload) => {
     try {
