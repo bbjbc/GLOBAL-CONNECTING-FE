@@ -4,14 +4,11 @@ import { Button } from '../ui/Button';
 import { TextArea } from '../ui/TextArea';
 import { dataStore } from '../../store/dataStore';
 import { useReviewMutation } from '../../apis/mutations';
-
-type FormData = {
-  resumeText: string;
-};
+import { IReviewPayload } from '../../types/review';
 
 const ResumeForm = () => {
   const { addChat, setReviewedText } = dataStore();
-  const { control, handleSubmit, watch } = useForm<FormData>({
+  const { control, handleSubmit, watch } = useForm<IReviewPayload>({
     defaultValues: {
       resumeText: '',
     },
@@ -21,7 +18,7 @@ const ResumeForm = () => {
   const resumeText = watch('resumeText'); // 입력값 감지
   const mutation = useReviewMutation();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: IReviewPayload) => {
     try {
       const result = await mutation.mutateAsync(data);
       setReviewedText(result.reviewedText);
@@ -45,7 +42,7 @@ const ResumeForm = () => {
           <TextArea
             {...field}
             placeholder="원하는 자기소개서를 입력해주세요. 저희 AI가 글을 분석한 후 개선해드려요."
-            rows={15}
+            rows={18}
             value={field.value || ''}
           />
         )}
