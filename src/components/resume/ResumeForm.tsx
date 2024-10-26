@@ -11,7 +11,7 @@ type ResumeFormProps = {
 };
 
 const ResumeForm = ({ mutation }: ResumeFormProps) => {
-  const { addChat, setReviewedText } = dataStore();
+  const { addChat } = dataStore();
   const { control, handleSubmit, watch } = useForm<IReviewPayload>({
     defaultValues: {
       resumeText: '',
@@ -21,15 +21,13 @@ const ResumeForm = ({ mutation }: ResumeFormProps) => {
 
   const resumeText = watch('resumeText'); // 입력값 감지
 
-  const onSubmit = async (data: IReviewPayload) => {
-    try {
-      const result = await mutation.mutateAsync(data);
-      setReviewedText(result.reviewedText);
-      addChat(result.reviewedText);
-    } catch (error) {
-      console.error(error);
-      addChat('죄송합니다. 첨삭 중에 오류가 발생했어요. 다시 시도해 주세요.');
-    }
+  const onSubmit = (data: IReviewPayload) => {
+    mutation.mutate(data, {
+      onError: (error) => {
+        console.error(error);
+        addChat('죄송합니다. 첨삭 중에 오류가 발생했어요. 다시 시도해 주세요.');
+      },
+    });
   };
 
   return (

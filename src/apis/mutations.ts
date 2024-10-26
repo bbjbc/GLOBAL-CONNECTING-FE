@@ -1,11 +1,22 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { reviewService } from './reviewService';
+import { dataStore } from '../store/dataStore';
 
 export const useReviewMutation = () => {
-  const reviewFn = reviewService.mockReview;
+  const { setReviewedText } = dataStore();
 
   return useMutation({
-    mutationFn: reviewFn,
+    mutationFn: reviewService.mockReview,
+    onMutate: () => {
+      setReviewedText('');
+    },
+    onSuccess: (data) => {
+      setReviewedText(data.reviewedText);
+    },
+    onError: (error) => {
+      console.error(error);
+      setReviewedText('');
+    },
   });
 };

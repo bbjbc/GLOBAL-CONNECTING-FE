@@ -32,7 +32,7 @@ const ReviewPage = () => {
           </div>
 
           <div className="lg:h-full">
-            {reviewedText ? (
+            {reviewedText || mutation.isPending ? (
               <div className="h-full rounded-lg bg-white p-4 shadow-sm">
                 <ReviewResult isPending={mutation.isPending} />
               </div>
