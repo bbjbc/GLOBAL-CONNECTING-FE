@@ -7,7 +7,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     return (
       <textarea
         ref={ref}
-        className="w-full rounded-lg border border-gray-300 p-4 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+        className="w-full p-4 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
         {...props}
       />
     );

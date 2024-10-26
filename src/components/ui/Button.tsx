@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from 'react';
 import { cn } from '../../utils/cn';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'warning';
   className?: string;
 };
 
@@ -24,6 +24,8 @@ const Button = ({
       'bg-blue-500 text-white hover:bg-blue-600 active:transform active:scale-[0.98] disabled:hover:bg-blue-500',
     secondary:
       'bg-gray-300 text-gray-800 hover:bg-gray-400 active:transform active:scale-[0.98] disabled:hover:bg-gray-300',
+    warning:
+      'bg-green-500 text-gray-800 hover:bg-green-600 active:transform active:scale-[0.98] disabled:hover:bg-green-500',
   };
 
   return (

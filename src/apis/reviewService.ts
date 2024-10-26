@@ -14,7 +14,7 @@ export const reviewService = {
   },
 
   mockReview: async (data: IReviewPayload): Promise<IReviewResponse> => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 10000));
     return {
       reviewedText: generateReviewText(data.resumeText),
     };
