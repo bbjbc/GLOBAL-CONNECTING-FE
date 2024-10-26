@@ -8,9 +8,6 @@ export const useReviewMutation = () => {
 
   return useMutation({
     mutationFn: reviewService.mockReview,
-    onMutate: () => {
-      setReviewedText('');
-    },
     onSuccess: (data) => {
       setReviewedText(data.reviewedText);
     },
