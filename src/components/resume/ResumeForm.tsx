@@ -40,25 +40,31 @@ const ResumeForm = ({ mutation }: ResumeFormProps) => {
           validate: (value) => value.trim().length > 0,
         }}
         render={({ field }) => (
-          <TextArea
-            {...field}
-            placeholder="원하는 자기소개서를 입력해주세요. 저희 AI가 글을 분석한 후 개선해드려요."
-            rows={18}
-            value={field.value || ''}
-          />
+          <>
+            <h2 className="flex-shrink-0 rounded-t-lg border-b-2 px-4 py-2 text-base font-bold">
+              자기소개서 입력
+            </h2>
+            <TextArea
+              {...field}
+              placeholder="원하는 자기소개서를 입력해주세요. 저희 AI가 글을 분석한 후 개선해드려요."
+              rows={18}
+              value={field.value || ''}
+            />
+          </>
         )}
       />
-      <div className="mt-4">
+
+      <footer className="mt-2">
         <Button
           type="submit"
-          className="w-full"
+          className="w-full rounded-b-lg rounded-t-none"
           disabled={mutation.isPending || !resumeText?.trim()}
         >
           {mutation.isPending
             ? '첨삭 중이에요. 잠시만 기다려주세요!'
             : '자소서 첨삭'}
         </Button>
-      </div>
+      </footer>
     </form>
   );
 };
