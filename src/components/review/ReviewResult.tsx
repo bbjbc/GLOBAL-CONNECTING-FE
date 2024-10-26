@@ -14,6 +14,11 @@ type ReviewResultProps = {
 const ReviewResult = ({ isPending }: ReviewResultProps) => {
   const [copied, setCopied] = useState(false);
   const reviewedText = dataStore((state) => state.reviewedText);
+  const resetStore = dataStore((state) => state.resetStore);
+
+  const copyText = '복사하기';
+  const copiedText = '복사 완료';
+  const reWriteText = '다시 쓰기';
 
   // 추후 토스트 메시지로 복사 완료 메시지를 보여줄 예정
   const handleCopy = async () => {
@@ -24,6 +29,10 @@ const ReviewResult = ({ isPending }: ReviewResultProps) => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleReWrite = () => {
+    resetStore();
   };
 
   return (
@@ -44,23 +53,32 @@ const ReviewResult = ({ isPending }: ReviewResultProps) => {
       </article>
 
       {reviewedText && (
-        <Button
-          variant="secondary"
-          onClick={handleCopy}
-          className="mt-2 flex items-center justify-center gap-2 rounded-b-lg rounded-t-none"
-        >
-          {copied ? (
-            <>
-              <IoCheckmarkDone className="h-4 w-4" />
-              <span>복사 완료</span>
-            </>
-          ) : (
-            <>
-              <LuClipboardSignature className="h-4 w-4" />
-              <span>복사하기</span>
-            </>
-          )}
-        </Button>
+        <div className="grid grid-cols-2 gap-0">
+          <Button
+            variant="secondary"
+            onClick={handleCopy}
+            className="mt-2 flex items-center justify-center gap-2 rounded-b-lg rounded-t-none rounded-br-none"
+          >
+            {copied ? (
+              <>
+                <IoCheckmarkDone className="h-4 w-4" />
+                <span>{copiedText}</span>
+              </>
+            ) : (
+              <>
+                <LuClipboardSignature className="h-4 w-4" />
+                <span>{copyText}</span>
+              </>
+            )}
+          </Button>
+          <Button
+            variant="warning"
+            onClick={handleReWrite}
+            className="mt-2 w-full rounded-b-lg rounded-t-none rounded-bl-none"
+          >
+            {reWriteText}
+          </Button>
+        </div>
       )}
     </main>
   );

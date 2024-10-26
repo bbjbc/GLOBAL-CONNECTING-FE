@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useForm, Controller } from 'react-hook-form';
 
 import { Button } from '../ui/Button';
@@ -12,12 +14,19 @@ type ResumeFormProps = {
 
 const ResumeForm = ({ mutation }: ResumeFormProps) => {
   const { addChat } = dataStore();
-  const { control, handleSubmit, watch } = useForm<IReviewPayload>({
+  const reviewedText = dataStore((state) => state.reviewedText);
+  const { control, handleSubmit, watch, reset } = useForm<IReviewPayload>({
     defaultValues: {
       resumeText: '',
     },
     mode: 'onChange', // 입력값이 변경될 때마다 유효성 검사
   });
+
+  useEffect(() => {
+    if (!reviewedText) {
+      reset();
+    }
+  }, [reviewedText]);
 
   const resumeText = watch('resumeText'); // 입력값 감지
 
